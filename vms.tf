@@ -17,7 +17,7 @@ resource "azurerm_virtual_machine" "gamer-vm01" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.gamer-vms.name
   network_interface_ids = [azurerm_network_interface.gamer-vm01-nic.id]
-  vm_size               = "Standard_NV4as_v4" 
+  vm_size               = "Standard_NV6" 
   #zones = 1
 
   storage_image_reference {
