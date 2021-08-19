@@ -17,38 +17,21 @@ resource "azurerm_virtual_machine" "gamer-vm01" {
   location              = var.location
   resource_group_name   = azurerm_resource_group.gamer-vms.name
   network_interface_ids = [azurerm_network_interface.gamer-vm01-nic.id]
-  vm_size               = "Standard_NV6" 
-  #zones = 1
-
-  storage_image_reference {
-    publisher = "MicrosoftWindowsDesktop"
-    offer     = "windows-10"
-    sku       = "20h1-pro-g2"
-    version   = "latest"  
+  priority            = "Spot"
+  max_bid_price       = 0.6
+  eviction_policy     = "Deallocate"
+  size                = var.vm_size
+  admin_username      = var.admin_username
+  admin_password      = random_password.main.result
+  allow_extension_operations = true
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
   }
-
-  storage_os_disk {
-    name              = "gamer-vm01-disk"
-    caching           = "ReadWrite"
-    create_option     = "FromImage"
-    managed_disk_type = "Standard_LRS"
+  source_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-Datacenter"
+    version   = "latest"
   }
-
-  os_profile_windows_config {
-    provision_vm_agent = true
-    enable_automatic_upgrades = true
-  }
-
-  os_profile {
-    computer_name  = "gamer-vms01"
-    admin_username = "gadm"     # todo into keyvault
-    admin_password = "g4mer0!_" # todo into keyvault
-  }
-
-#   additional_capabilities {
-#     ultra_ssd_enabled = true
-#   }
-
 }
-
-

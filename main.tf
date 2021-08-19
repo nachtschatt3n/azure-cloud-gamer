@@ -24,3 +24,9 @@ provider "azurerm" {
   }
   subscription_id            = var.subscription_id
 }
+
+resource "random_password" "main" {
+  length = 16
+  special = true
+  override_special = "_%@"
+}
