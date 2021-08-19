@@ -23,7 +23,7 @@ resource "azurerm_virtual_machine" "gamer-vm01" {
   storage_image_reference {
     publisher = "MicrosoftWindowsDesktop"
     offer     = "windows-10"
-    sku       = "20h1-pro-g2"
+    sku       = "20h1-pro"
     version   = "latest"  
   }
 
