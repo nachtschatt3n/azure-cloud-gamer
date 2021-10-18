@@ -1,7 +1,7 @@
 #!/bin/bash
 LOCATION="westeurope"
 RG_NAME="Management"
-SA_NAME="terraformmgnt01" # must be uniqu in all of azure!
+SA_NAME="terraformmgnt01" # must be uniq 
 SA_SKU="Standard_GRS"   # Premium storage does not support GRS
 CONTAINER_NAME="terraform"
 

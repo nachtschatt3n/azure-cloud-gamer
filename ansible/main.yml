@@ -1,0 +1,69 @@
+
+- name: Bootstrap Machine
+  connection: hosts.ini
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: Install Parsec
+      win_chocolatey:
+        name: parsec
+    - name: Install Steam
+      win_chocolatey:
+        name: steam
+    - name: Get Virtual Audio
+      win_get_url:
+        url: https://download.vb-audio.com/Download_CABLE/VBCABLE_Driver_Pack43.zip
+        dest: C:\VBCABLE_Driver_Pack43.zip
+    - name: Unzip gz log
+      win_unzip:
+        src: C:\VBCABLE_Driver_Pack43.zip
+        dest: C:\VBCABLE_Driver_Pack43
+    - name: Install .Net 3.5
+      win_chocolatey:
+        name: dogtail.dotnet3.5sp1
+    - name: Enable audio service
+      win_service:
+        name: 'Audiosrv'
+        start_mode: auto
+        state: started
+    - name: Disable firewall for Domain, Public and Private profiles
+      win_firewall:
+        state: disabled
+        profiles:
+        - Domain
+        - Private
+        - Public
+    - name: Disable Default PNP Monitor
+      win_shell: Disable-PnpDevice -InstanceId 'DISPLAY\MSH062E\6&1a097cd8&0&UID5527112' -confirm:$false
+    - name: Disable Default Display Adapter
+      win_shell: Disable-PnpDevice -InstanceId 'VMBUS\{DA0A7802-E377-4AAC-8E77-0558EB1073F8}\{5620E0C7-8062-4DCE-AEB7-520C7EF76171}' -confirm:$false
+    - name: Get Star Citizen
+      win_get_url:
+        url: https://install.robertsspaceindustries.com/star-citizen/RSI-Setup-1.4.11.exe
+        dest: C:\RSI-Setup-1.4.11.exe
+    - name: Get Chrome
+      win_chocolatey: 
+        name: googlechrome
+    - name: Install Process Explorer
+      win_chocolatey:
+        name: procexp
+    - name: Install Auto Login
+      win_chocolatey:
+        name: autologon
+    - name: activate auto login
+      win_shell: autologon  # autologon <user> <domain> <pw>
+    # - name: get GPUUpdate Script for Parsec
+    #   win_get_url: 
+    #     url: https://raw.githubusercontent.com/parsec-cloud/Cloud-GPU-Updater/master/GPUUpdaterTool.ps1
+    #     dest: C:\GPUUpdaterTool.ps1
+    # - name:  Mount Azure files share's
+    #   ansible.windows.win_shell: |
+    #     $connectTestResult = Test-NetConnection -ComputerName gamedrivebackup.file.core.windows.net -Port 445
+    #     if ($connectTestResult.TcpTestSucceeded) {
+    #         # Save the password so the drive will persist on reboot
+    #         cmd.exe /C "cmdkey /add:`"gamedrivebackup.file.core.windows.net`" /user:`"localhost\gamedrivebackup`" /pass:`"oC22givUJSrCwAqWgeWGMvlJsntf6c4u6YHxFZF5O3g78kleAHKhwRN7CpMNIzer1tkDqGqO2qYwPU0gIG9UUQ==`""
+    #         # Mount the drive
+    #         New-PSDrive -Name Z -PSProvider FileSystem -Root "\\gamedrivebackup.file.core.windows.net\gamebackup" -Persist
+    #     } else {
+    #         Write-Error -Message "Unable to reach the Azure storage account via port 445. Check to make sure your organization or ISP is not blocking port 445, or use Azure P2S VPN, Azure S2S VPN, or Express Route to tunnel SMB traffic over a different port."
+    #     }

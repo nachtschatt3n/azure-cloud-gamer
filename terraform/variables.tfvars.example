@@ -1,0 +1,5 @@
+resource_group_name =  "azure-gaming"
+vm_size =  "Standard_NV6"
+admin_username =   "your admin_user"
+admin_password =   "your password"
+subscription_id =  "your subscription id"

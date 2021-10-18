@@ -1,11 +1,10 @@
-# azure-cloud-gamer
-terraform code to create a cloud gaming vm in azure
+> Requires Terraform, Ansible and az cli on your local system. Also you need to have an active azure subscription to setup the vm into. 
 
+## Setup
 
-# Infos 
-https://www.baitando.com/it/2021/01/01/setting-up-a-cloud-gaming-vm
-
-https://github.com/ecalder6/azure-gaming
-https://github.com/nVentiveUX/azure-gaming/blob/master/create_vmss.sh
-https://github.com/nyanhp/AzureCloudGaming
-https://github.com/SamStenton/azure-gaming really cool!
+1) Run `az login`
+2) Run `init.sh`
+3) Copy  `variables.tfvars.example` to variables.tfvars and adjust
+4) Run `terraforn apply terraform`
+5) Copy `ansible/hosts.template` to `hosts.ini` and adjust
+6) Run ansible-playbook  -i ansible/hosts.ini ansible/main.yml 
