@@ -61,7 +61,7 @@
     #     $connectTestResult = Test-NetConnection -ComputerName gamedrivebackup.file.core.windows.net -Port 445
     #     if ($connectTestResult.TcpTestSucceeded) {
     #         # Save the password so the drive will persist on reboot
-    #         cmd.exe /C "cmdkey /add:`"gamedrivebackup.file.core.windows.net`" /user:`"localhost\gamedrivebackup`" /pass:`"oC22givUJSrCwAqWgeWGMvlJsntf6c4u6YHxFZF5O3g78kleAHKhwRN7CpMNIzer1tkDqGqO2qYwPU0gIG9UUQ==`""
+    #         cmd.exe /C "cmdkey /add:`"gamedrivebackup.file.core.windows.net`" /user:`"localhost\gamedrivebackup`" /pass:`"asdasdasd`""
     #         # Mount the drive
     #         New-PSDrive -Name Z -PSProvider FileSystem -Root "\\gamedrivebackup.file.core.windows.net\gamebackup" -Persist
     #     } else {
